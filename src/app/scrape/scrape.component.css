@@ -1,0 +1,272 @@
+section {
+    position: relative;
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+section::before{
+    content: '';
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,#184E7D, #0a2033);
+    border-radius: 0 0 50% 50%/0 0 100% 100%;
+    transform: scaleX(1.5);
+}
+
+section .content{
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    max-width: 900px;
+    text-align: center;
+    margin-top: 50px;
+}
+section .content p{
+    color: #F26419;
+    font-size: 2em;
+}
+
+section .title{
+    position: relative;
+    max-width: 1000px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color:#fff;
+}
+
+.text-header {
+    text-align: center;
+    color: #184E7D;
+    font-family: Arial, sans-serif;
+    font-size: 50px;
+    padding-top: 10px;
+  }
+  
+.bold {
+    font-weight: bold;
+}
+
+section .content h2{
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 3em;
+}
+
+.corner-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.corner-icon i {
+    font-size: 24px; /* Adjust the font size as needed */
+}
+
+.corner-icon:hover{
+    color: #F26419;
+}
+
+img {
+    width: 80px; /* Adjust image width as needed */
+    height: auto; /* Maintain image aspect ratio */
+    margin-bottom: 10px; /* Add spacing between image and text */
+}
+
+
+.dropdown-div {
+    width: 150px;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+  
+.dropdown {
+    margin: 2em;
+    width: 450px;
+}
+  
+.dropdown * {
+    box-sizing: border-box;
+}
+
+.select {
+    background: transparent;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.select-clicked {
+    border: 2px #3d6181;
+    box-shadow: 0 0 0.8em wheat;
+}
+
+.select:hover {
+    background: #3d6181;
+}
+
+.caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #fff;
+    transition: 0.3s; 
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.menu {
+    list-style: none;
+    background: transparent;
+    border: 1px #fff solid;
+    padding: 0.2em 0.5em;
+    left:50%;
+    top:3em;
+    width:100%;
+    transform: translateX(-50%);
+    box-shadow: 0 0.5em 1em rgba(0,0,0,0.2);
+    border-radius: 0.5em;
+    color:#fff;
+    position: absolute;
+    transition: 0.2s;
+    z-index: 1;
+    margin-top: 10px;
+}
+
+.no-menu{
+    display: none;
+}
+
+.menu li {
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.menu li:hover{
+    background: #3d6181;
+}
+
+.active {
+    background: #fff;
+    opacity: 80%;
+    color: #0a2033;
+    font-weight: bold;
+}
+
+.menu-open {
+    display: block;
+    opacity: 1;
+
+}
+
+ul{
+    width: 300px; 
+    height: 210px; 
+    overflow: auto
+}
+
+ul::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+  
+ul::-webkit-scrollbar-thumb {
+    background-color: #fff; /* Color of the scrollbar thumb */
+    border-radius: 5px; /* Add rounded corners to the thumb */
+}
+
+input{
+    background:transparent;
+    border:none;
+    border-bottom: 1px solid #ffffff;
+    border-radius: 7px;
+    width: 87%;
+    height: 40px;
+    margin-bottom: 30px;
+}
+
+.form-group input[type="text"]::placeholder {
+    color: white; /* Set the placeholder text color to white */
+    text-align: center; /* Center-align the placeholder text */
+  }
+
+  .form-group input[type="text"]{
+    color: white;
+  }
+
+  .scrape-button {
+    background-color: transparent;
+    color:#fff;
+    border: 1px #fff solid;
+    height: 40px;
+    width: 200px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+
+.scrape-button-shaded{
+    background-color: #3d6181;
+    color:#fff;
+    border: 1px #fff solid;
+    height: 40px;
+    width: 200px;
+    border-radius: 10px;
+    pointer-events: none;
+    transition: box-shadow 0.15s;
+}
+
+.scrape-button-none {
+    opacity: 0;
+}
+
+.return-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .return-link i {
+    font-size: 16px; /* Adjust the font size as needed */
+  }
+
+.return-link:hover{
+    color: #F26419;
+}
+
+.message{
+    color: #F26419;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.message-input{
+    color: #F26419;
+    font-size: 16px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}

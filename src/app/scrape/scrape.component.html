@@ -1,0 +1,67 @@
+<section>
+    <div class="corner-icon">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    </div>
+    <div class="return-link" [routerLink]="['/home']">
+        <span><i class="fa-solid fa-caret-left"></i></span>
+        <span class="back"> Povratak na ankete</span>
+      </div>
+    <div class="content">
+        <img src="../../assets/logo2.png" alt="Image">
+        <h2>Računarski fakultet</h2>
+        <p>Ankete</p>
+        <div class="title">
+            Unesite potrebne podatke
+        </div>
+        <div class="title">
+            za preuzimanje nove ankete:
+        </div>
+
+        <form (ngSubmit)="submitForm()">
+            <div class="form-group">
+                <div class="dropdown">
+                    <div class="select" (click)="showTypes()">
+                        <span class="selected">{{selectedType}}</span>
+                        <div class="caret {{toRotateType ? 'rotate' : ''}}"></div>
+                    </div>         
+                        <ul class="{{menuTypes ? 'menu' : 'no-menu'}}">
+                            <li  *ngFor ="let type of types" class="{{selectedType===type ? 'active' : ''}}" (click)="selectType(type)">
+                                {{type}}
+                            </li>
+                        </ul>
+                </div>
+  </div>
+  <div class="{{!menuTypes ? 'form-group' : 'no-menu'}}">
+  <div class="dropdown">
+    <div class="select" (click)="showYears()">
+        <span class="selected">{{selectedYear}}</span>
+        <div class="caret {{toRotateYear ? 'rotate' : ''}}"></div>
+    </div>         
+        <ul class="{{menuYears ? 'menu' : 'no-menu'}}">
+            <li  *ngFor ="let year of years" class="{{selectedYear===year ? 'active' : ''}}" (click)="selectYear(year)">
+                {{year}}
+            </li>
+        </ul>
+</div>
+</div>
+
+
+  <div class="{{!menuYears && !menuTypes ? 'form-group' : 'no-menu'}}">
+    <input type="text" id="input1" name="input1" placeholder="Unesite URL ankete" [(ngModel)]="formData.input1" required>
+  </div>
+
+  <div class="{{!menuYears && !menuTypes ? 'form-group' : 'no-menu'}}">
+    <input type="text" id="input2" name="input2" placeholder="Naziv ankete" [(ngModel)]="formData.input2" disabled>
+  </div>
+
+  <div class="{{!menuYears && !menuTypes ? 'message-input' : 'no-menu'}}">{{messageInput}}</div>
+
+  <button (click) = "scrape()" [class.scrape-button-shaded]="!menuYears && !menuTypes  && (!isSelectedType || formData.input1 === '')"
+                                [class.scrape-button]="!menuYears && !menuTypes && (isSelectedType && formData.input1 !== '')" 
+                                [class.scrape-button-none]="menuYears || menuTypes" aria-current="page">Preuzmi anketu</button>
+                            
+    </form>
+    <div class="message">{{message}}</div>
+    </div>
+    
+</section>

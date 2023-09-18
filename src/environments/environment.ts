@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  clientId: '1065134056159-5me7g3f44rdks49f5mctr2kmkhgs4h76.apps.googleusercontent.com',
+  clientSecret: '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',
+  redirectUriApp: 'http://localhost:4200/home',
+  existingScope: 'https%3A//www.googleapis.com/auth/drive.metadata.readonly',
+  additionalScope: 'https://www.googleapis.com/auth/userinfo.email',
+  authUrl: 'http://localhost:8000/auth',
+  scrapeUrl: 'http://localhost:5000/scrape',
+  dataUrl: 'http://localhost:8000/data',
+  resultsUrl: 'http://localhost:8000/results'
 };
 
 /*

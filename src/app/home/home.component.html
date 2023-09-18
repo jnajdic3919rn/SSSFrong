@@ -1,0 +1,187 @@
+<section>
+    <div class="corner-icon" (click)="logout()" [routerLink]="['/auth']">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    </div>
+    <div class="content">
+        <img src="../../assets/logo2.png" alt="Image">
+        <h2>Računarski fakultet</h2>
+        <p>Ankete</p>
+        <div class="title">
+            Izaberite anketu za pregled
+        </div>
+        <div class="title">
+            analize sentimenta i statistike:
+        </div>
+        <div class="dropdown">
+            <div class="select" (click)="showTypes()">
+                <span class="selected">{{selectedType}}</span>
+                <div class="caret {{toRotateType ? 'rotate' : ''}}"></div>
+            </div>         
+                <ul class="{{menuTypes ? 'menu' : 'no-menu'}}">
+                    <li  *ngFor ="let type of types" class="{{selectedType===type ? 'active' : ''}}" (click)="selectType(type)">
+                        {{type}}
+                    </li>
+                </ul>
+        </div>
+        <div class="dropdown {{!menuTypes ? '' : 'menu-none'}}">
+            <div class="select" (click)="showMenu()">
+                <span class="selected">{{selected}}</span>
+                <div class="caret {{toRotate ? 'rotate' : ''}}"></div>
+            </div>         
+                <ul class="{{menu ? 'menu' : 'no-menu'}}">
+                    <li  *ngFor ="let option of options" class="{{selected===option ? 'active' : ''}}" (click)="selectOption(option)">
+                        {{option}}
+                    </li>
+                </ul>
+        </div>
+        <div class="{{!menu && !menuTypes ? 'wrapper' : 'no-menu'}}">
+            <div class="select-btn" (click)="showMenuSubject()">
+                <span class="selected">{{selectedSubject}}</span>
+                <div class="caret {{toRotateSubject ? 'rotate' : ''}}"></div>
+            </div>
+            <div class="{{menuSubject ? 'dropdown-content' : 'no-menu'}}">
+                <div class="dropdown-search">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Pretraži predmete..." [(ngModel)]="searchTerm" (ngModelChange)="onSearchTermChange($event)">
+                </div>
+                <ul class="options">
+                    <li  *ngFor ="let subject of subjects" class="{{selectedSubject===subject ? 'active' : ''}}" (click)="selectSubject(subject)">
+                        {{subject}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    <div [class.message]="!menu && !menuTypes && !menuSubject" 
+        [class.no-menu]="menu || menuTypes || menuSubject">{{message}}</div>
+
+        <button (click) = "search()" [class.login-button-shaded]="!menu && !menuTypes && !menuSubject && (!isSelectedType || !isSelected || !isSelectedSubject)"
+        [class.login-button]="!menu && !menuTypes && !menuSubject && (isSelectedType && isSelected && isSelectedSubject)" 
+        [class.login-button-none]="menu || menuTypes || menuSubject"
+        aria-current="page">Pregledaj</button>
+    <div class="{{!menu && !menuSubject && !menuTypes ? 'scrape' : 'no-menu'}}">
+    <h6>Ne pronalazite anketu?</h6>
+    <h6>
+
+    <div class="scrape-text" [routerLink]="['/scrape']">Preuzmite je</div>
+    </h6>
+
+    </div>
+    
+                                   
+    </div>
+</section>
+<br>
+<br>
+<br>
+<br>
+<div class="{{isExtended ? 'extended' : 'extended-none'}}">
+<div class="container-fluid card-bg" #searchElement id="search">
+    <div id="application" class="card-bg py-10">
+        <div class="container card-bg px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <h2 class="mb-5">{{selected}}</h2>
+                        <h4 class="mb-5">Predmet: {{subject}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-div">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="card card-votes text-center text-decoration-none">
+                        <div class="card-body py-5">
+                            <div class="">
+                              <span class="icon-in-color" id="votes"><i class="fa-solid fa-users fa-2x icon"></i></span>
+                            </div>
+                            <h5 class="mt-4 des">Broj glasova</h5>
+                            <h3 class="mt-4">{{votes}}</h3>
+                            <p class="card-text small"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="card card-grades text-center text-decoration-none">
+                        <div class="card-body py-5">
+                            <div>
+                                <span class="icon-in-color" id="grade"><i class="fa-solid fa-star fa-2x icon"></i></span>
+                            </div>
+                            <h5 class="mt-4 des">Prosečna ocena</h5>
+                            <h3 class="mt-4">{{grade}}</h3>
+                            <p class="card-text small"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="card card-comments text-center text-decoration-none">
+                        <div class="card-body py-5">
+                            <div>
+                              <span class="icon-in-color" id="comments"><i class="fa-solid fa-comment fa-2x icon"></i></span>
+                            </div>                          
+                            <h5 class="mt-4 des">Broj komentara</h5>
+                            <h3 class="mt-4">{{numOfComments}}</h3>
+                            <p class="card-text small"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div>
+
+    <div class="card-div">
+        <h4 class="mb-5">Možete porediti rezultate anketa za predmet: {{subject}} po godinama</h4>
+    </div>
+    <div class="card-div">
+        <canvas class="chartCanvas" id="canvas">{{chartAll}}</canvas>
+        <canvas class="chartCanvas" id="canvas2">{{chartComments}}</canvas>
+    </div>
+    <br>
+    <br>
+    <div class="card-div">
+        <h4 class="mb-5">Sentiment analiza komentara</h4>
+    </div>
+    <div class="search">   
+        <input type="search"
+            placeholder="Petraži komentare..."
+            name="search" [(ngModel)]="searchComment">
+        <div class="btn-search"  (click)="onSearchCommentChange()">          
+            <button>
+                <i class="bi bi-search"></i>
+            </button>
+        </div>  
+    </div>  
+    <br>
+    <br>
+    <div>
+      
+    <div class="card-div">
+        <div class="grad">
+        <div class="card-div-ver pos">
+            <h5 class="h-pos">POZITIVNI</h5>
+            <ul class="comment-list">
+                <li *ngFor="let comment of positiveComments2" class="comment-text-pos">{{comment}} <hr class="hr-comments"></li>
+                <p class="{{pos ? 'p-no comment-text-pos' : 'no-menu'}}" *ngIf="pos">Nema pozitivnih komentara</p>
+            </ul>
+        </div>
+        <div class="card-div-ver neg">
+        <h5 class="h-neg">NEGATIVNI</h5>
+        <ul class="comment-list">
+            <li *ngFor="let comment of negativeComments2" class="comment-text-neg">{{comment}} <hr class="hr-comments"></li>
+            <p class="{{neg ? 'p-no comment-text-neg':'no-menu'}}">Nema negativnih komentara</p>
+        </ul>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="{{isExtendedScrape ? 'extendedScrape' : 'extended-none'}}">
+<p>Juhu</p>
+</div>
+
+
+

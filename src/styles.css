@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&family=Roboto:wght@100;300&display=swap');
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+
+body {
+    margin: 0; /* Reset default body margin */
+    padding: 0;
+    background-color: #f0f0f0; /* Example background color */
+  }
