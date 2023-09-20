@@ -10,20 +10,24 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { environment } from 'src/environments/environment';
 import { ScrapeComponent } from './scrape/scrape.component';
+import { LegitimationComponent } from './legitimation/legitimation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    ScrapeComponent
+    ScrapeComponent,
+    LegitimationComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    
   ],
   providers: [
    

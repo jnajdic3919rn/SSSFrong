@@ -66,4 +66,15 @@ export class GoogleAuthService {
     const link = `https://accounts.google.com/o/oauth2/v2/auth?scope=${scope}&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=${redirectUri}&client_id=${clientId}`
     window.location.href = link;
   }
+
+  loginWithCredentials(username: string, password: string): Observable<any>{
+    const url = `${environment.authUrl}/login`;
+
+    let body = {
+      "username": username,
+      "password": password
+    }
+    return this.httpClient.post(url, body);
+
+  }
 }

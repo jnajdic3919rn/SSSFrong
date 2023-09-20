@@ -58,7 +58,10 @@ export class HomeComponent implements OnInit {
 
   message: string
 
+  admin: boolean
+
   constructor(private activatedRoute: ActivatedRoute, private authService: GoogleAuthService, private router:Router, private scrapeService : ScrapeService, private dataService : DataService) { 
+    this.types = [];
     this.menu = false;
     this.menuTypes = false;
     this.menuSubject = false;
@@ -80,7 +83,6 @@ export class HomeComponent implements OnInit {
     this.isExtended = false;
     this.isExtendedScrape = false;
     this.isScrolled = false;
-    this.types = [];
     this.selectedType = 'Izaberite tip ankete';
     this.isSelectedType = false;
     this.selectedSubject = 'Izaberite predmet';
@@ -100,33 +102,19 @@ export class HomeComponent implements OnInit {
 
     this.message = '*Za pregled sva polja moraju biti popunjena'
 
+    this.admin = false
+    if(localStorage.getItem("role") === 'ROLE_ADMIN')
+      this.admin = true;
+    
     Chart.register(...registerables);
   }
 
   ngOnInit(): void {
-    
-    this.activatedRoute.queryParams.subscribe(params => {
-      const code = params['code']; // Retrieve the value of the 'code' parameter
-      if (code) {
-        console.log('Code:', code);
-        // Make an HTTP request to exchange the code for tokens
-        this.authService.exchangeAuthCodeForAccessToken(code).subscribe((res : any)=>{
-          console.log(res)
-          // this.saveToFile(res, 'response.json');
-          
-          this.authService.exchangeForJwtToken(res.access_token).subscribe((res : any) => {
-            localStorage.setItem('token', res.message);
-            const tokenInfo = this.getDecodedAccessToken(res.message);
-            localStorage.setItem('faculty', tokenInfo.faculty);
-          })
-        })
-      }
-    });
 
     this.dataService.getTypes().subscribe((res: any)=> {
       this.types = res.list;
-      console.log(this.types)
     })
+  
   }
 
   logout(): void{
@@ -154,7 +142,6 @@ export class HomeComponent implements OnInit {
 
   ngAfterViewChecked() {
       if(!this.isScrolled && this.isExtended){
-        console.log('juhu')
         this.searchElement.nativeElement.scrollIntoView({ behavior: 'smooth' });
         this.isScrolled = true
       }
@@ -256,7 +243,7 @@ export class HomeComponent implements OnInit {
   }
 
   onSearchTermChange(filter: string) {
-    this.subjects = this.allSubjects.filter(item => item.startsWith(filter));
+    this.subjects = this.allSubjects.filter(item => item.toLowerCase().startsWith(filter.toLowerCase()));
   }
 
   onSearchCommentChange(){
@@ -270,6 +257,9 @@ export class HomeComponent implements OnInit {
     
     this.isScrolled = false
     this.isExtended = true;
+    this.pos = false;
+    this.neg = false;
+
     let faculty = localStorage.getItem('faculty');
 
     if(faculty === null){
@@ -289,7 +279,6 @@ export class HomeComponent implements OnInit {
       this.grade = res.grade;
       this.numOfComments = res.numberOfComments;
       
-      console.log("Pokusaj")
       for(let hd of res.historyData){
         this.years = hd.years;
         if(hd.type === 'votes')

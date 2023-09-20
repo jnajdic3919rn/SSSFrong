@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import { environment } from 'src/environments/environment';
-import { ResultsDto } from 'src/models';
+import { MessageDto, ResultsDto } from 'src/models';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,19 @@ export class DataService {
     let params = new HttpParams().append("type",type).append("faculty", faculty);
 
     return this.httpClient.get<string[]>(`${environment.dataUrl}/survey`, {params, headers});
+  }
+
+  getSurvey(url: string, faculty: string): Observable<MessageDto> {
+    console.log(url)
+    console.log(faculty)
+    const authToken = localStorage.getItem("token")
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${authToken}`
+    });
+
+    let params = new HttpParams().append("url",url).append("faculty", faculty);
+
+    return this.httpClient.get<MessageDto>(`${environment.dataUrl}/survey/check`, {params, headers});
   }
 
   getSubjects(type: string, faculty: string, title: string): Observable<string[]> {

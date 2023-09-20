@@ -4,7 +4,7 @@ export interface ScrapeData {
     idToken: string;
   }
 
-  export interface ResultsDto{
+  export interface ResultsDto {
     grade: number;
     votes: number;
     numberOfComments: number;
@@ -13,8 +13,13 @@ export interface ScrapeData {
     negativeComments: string[];
   }
 
-  export interface HistoryData{
+  export interface HistoryData {
     type: string;
     years: number[];
     results: number[];
+  }
+
+  export interface MessageDto {
+    message: string
+    flag: boolean
   }

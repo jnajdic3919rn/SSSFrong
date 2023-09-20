@@ -4,26 +4,33 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ScrapeComponent } from './scrape/scrape.component';
 import { AuthGuard } from 'src/guard/auth.guard';
+import { LegitimationComponent } from './legitimation/legitimation.component';
+import { LoginGuard } from 'src/guard/login.guard';
+import { AdminGuard } from 'src/guard/admin.guard';
 
 const routes: Routes = [
   { path: '', 
     component: LoginComponent, 
-    canDeactivate: [AuthGuard] 
+    canActivate: [LoginGuard]
   },
   {
     path: "auth",
     component: LoginComponent,
-    canDeactivate: [AuthGuard]
+    canActivate: [LoginGuard]
   },
   {
     path: "home",
-    component: HomeComponent,
-    canActivate: [AuthGuard]
+    component: LegitimationComponent,
+},
+{
+  path: "survey",
+  component: HomeComponent,
+  canActivate: [AuthGuard]
 },
   {
     path: "scrape",
     component: ScrapeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, AdminGuard]
   }
 ];
 

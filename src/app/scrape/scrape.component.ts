@@ -48,21 +48,37 @@ export class ScrapeComponent implements OnInit {
   }
 
   scrape(): void{
+    this.message = ''
     let faculty = localStorage.getItem('faculty');
     if(faculty === null){
       this.message = "Nema informacija o fakultetu kome pripadate."
       return;
     }
-    this.scrapeService.startScrape(faculty, this.formData.input1, this.formData.input2, this.selectedType, this.selectedYear).subscribe(
-      (res: any) => {
-        // Handle the successful response here
-        this.message = res.message;
-      },
-      (error: any) => {
-        // Handle errors here
-        this.message = error.error;
-      }
-    )
+    console.log("uso")
+    this.dataService.getSurvey(this.formData.input1, faculty).subscribe(res => {
+      console.log(res)
+        if(res.flag === true){
+          this.message = res.message;
+          return;
+        }
+        else{
+          if(faculty === null){
+            this.message = "Nema informacija o fakultetu kome pripadate."
+            return;
+          }
+          this.message = 'Čeka se ishod...'
+          this.scrapeService.startScrape(faculty, this.formData.input1, this.formData.input2, this.selectedType, this.selectedYear).subscribe(
+            (res: any) => {
+              this.message = res;
+            },
+            (error: any) => {
+              // Handle errors here
+              this.message = error.error;
+            }
+          )
+        }
+    })
+  
   }
 
   submitForm() {
@@ -105,7 +121,9 @@ export class ScrapeComponent implements OnInit {
     this.formData.input2 = "Anketa " + this.selectedType.split('_')[0].toLowerCase() + ' - ' + this.selectedType.split('_')[1].toLowerCase() + ' - ' + this.selectedYear
   }
 
-  
+  logout(): void{
+    localStorage.clear();
+  }
 
 
 }

@@ -59,7 +59,7 @@
         [class.login-button]="!menu && !menuTypes && !menuSubject && (isSelectedType && isSelected && isSelectedSubject)" 
         [class.login-button-none]="menu || menuTypes || menuSubject"
         aria-current="page">Pregledaj</button>
-    <div class="{{!menu && !menuSubject && !menuTypes ? 'scrape' : 'no-menu'}}">
+    <div *ngIf="admin" class="{{!menu && !menuSubject && !menuTypes ? 'scrape' : 'no-menu'}}">
     <h6>Ne pronalazite anketu?</h6>
     <h6>
 
@@ -183,5 +183,5 @@
 <p>Juhu</p>
 </div>
 
-
+</div>
 

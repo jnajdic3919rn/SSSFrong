@@ -1,8 +1,8 @@
 <section>
-    <div class="corner-icon">
+    <div class="corner-icon" (click)="logout()" [routerLink]="['/auth']">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
     </div>
-    <div class="return-link" [routerLink]="['/home']">
+    <div class="return-link" [routerLink]="['/survey']">
         <span><i class="fa-solid fa-caret-left"></i></span>
         <span class="back"> Povratak na ankete</span>
       </div>
@@ -61,7 +61,8 @@
                                 [class.scrape-button-none]="menuYears || menuTypes" aria-current="page">Preuzmi anketu</button>
                             
     </form>
-    <div class="message">{{message}}</div>
+    <div [class.no-menu]="menuYears || menuTypes"
+    [class.message]="!menuYears && !menuTypes">{{message}}</div>
     </div>
     
 </section>

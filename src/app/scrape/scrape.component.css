@@ -258,12 +258,14 @@ input{
     color: #F26419;
 }
 
-.message{
+.message {
     color: #F26419;
-    font-size: 20px;
-    margin-top: 10px;
-}
-
+    font-size: 18px;
+    margin: 10px auto; /* Center the message horizontally by using auto margins */
+    max-width: 400px; /* Set a maximum width */
+    text-align: center;
+    word-wrap: break-word;
+  }
 .message-input{
     color: #F26419;
     font-size: 16px;

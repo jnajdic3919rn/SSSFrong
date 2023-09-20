@@ -13,6 +13,8 @@ export class ScrapeService {
 
   startScrape(faculty: string, url:string, survey: string, surveyType: string, surveyYear: number): Observable<any> {
 
+    const authToken = localStorage.getItem("token");
+
     const params = new HttpParams()
       .append("faculty", faculty)
       .append("url", url)
@@ -23,6 +25,7 @@ export class ScrapeService {
    
     let header = new HttpHeaders({
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
     })
   
     
